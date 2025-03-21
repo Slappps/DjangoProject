@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script>
+        function checked() {
+          console.log("im working");
+          document.getElementById("myForm").submit();
+        }
+    </script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>To-Do List</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background-color: #f4f4f4;
+        }
+        #todo-container {
+            background: white;
+            padding: 20px;
+            max-width: 400px;
+            margin: 20px auto;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        input, button {
+            margin: 5px;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+        button {
+            cursor: pointer;
+            background-color: #28a745;
+            color: white;
+            border: none;
+        }
+        button:hover {
+            background-color: #218838;
+        }
+        ul {
+            list-style: none;
+            padding: 0;
+        }
+        li {
+            background: #eee;
+            padding: 10px;
+            margin: 5px 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-radius: 5px;
+        }
+        .delete-btn {
+            background-color: #dc3545;
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            border-radius: 5px;
+        }
+        .delete-btn:hover {
+            background-color: #c82333;
+        }
+    </style>
+</head>
+<body>
+
+
+    <h2>To-Do List</h2>
+    <form action ="{% url 'mydata' %}" method = 'post' id = 'myForm'>
+        {% csrf_token %}
+        <div id="todo-container">
+            <input type="text" name = "date" placeholder="3-20-2025"><br>
+            <input type="text" name = "desc" placeholder="enter a description"><br>
+            <button name = "send">Add Task</button>
+            <ul>
+                {% for x in latest_data_list %}
+                <li>
+                    {{ x.todo_text }} Completed: {{ x.completed }}
+                    <button class="delete-btn" value = "{{x.id}}" name = "delete">X</button>
+                    {%if x.completed == True%}
+                    <input type="checkbox" value = "{{x.id}}" name = "check" id="{{x.id}}" checked >
+                    {%else%}
+                    <input type="checkbox" value = "{{x.id}}" name = "check" id="{{x.id}}"  >
+                    {%endif%}
+
+                    <script>
+                        document.getElementById('{{x.id}}').addEventListener('click',checked);
+                    </script>
+                </li>
+                {% endfor %}
+            </ul>
+
+        </div>
+    </form>
+
+</body>
+</html>
+
