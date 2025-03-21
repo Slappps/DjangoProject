@@ -71,7 +71,7 @@
     <form action ="{% url 'mydata' %}" method = 'post' id = 'myForm'>
         {% csrf_token %}
         <div id="todo-container">
-            <input type="text" name = "date" placeholder="3-20-2025"><br>
+            <input type="text" name = "date" placeholder="2025-03-25"><br>
             <input type="text" name = "desc" placeholder="enter a description"><br>
             <button name = "send">Add Task</button>
             <ul>

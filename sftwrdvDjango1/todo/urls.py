@@ -6,7 +6,7 @@ urlpatterns = [
 
     path("", views.home, name = 'home'),
     path("mydata/", views.mydata, name = 'mydata'),
-    path("mydata/add", views.add, name = 'add'),
+
 
 
 ]
